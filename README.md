@@ -1,13 +1,12 @@
-# Sistema para Cadastro Medicamento
+# Sistema para Gerencimento de Medicamento [Em desenvolvimento]
 ## ADS - Faculdades SENAC - Maringá
 
 ```
-Linguagem
-Java com Swing
+Linguagem Java com Swing
 ```
-``` Persistência
-###Objeto com ArrayList
 ```
-``` IDE
-intellij
+Persistência em Objeto com ArrayList
+```
+```
+IDE intellij
 ```
