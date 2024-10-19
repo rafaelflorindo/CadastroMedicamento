@@ -1,6 +1,7 @@
 package Negocio;
 
 public class Medicamento {
+    private int id;
     private String nome;
     private String principioAtivo;
     private String dataFabricacao;
@@ -46,6 +47,14 @@ public class Medicamento {
 
     public void setDataValidade(String dataValidade) {
         this.dataValidade = dataValidade;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
