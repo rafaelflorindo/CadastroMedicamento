@@ -16,11 +16,10 @@ public class Principal extends JFrame{
     private JPanel MainPanel;
     private JTextField TPrincipioAtivo;
     private JTextField TDataValidade;
-    private JList Jlist1;
     private JButton mostrarTudoButton;
+    private JButton btable;
 
     ControlaMedicamento cm = new ControlaMedicamento();
-//    DefaultListModel model = new DefaultListModel();
 
     public void limparCampos(){
         TMedicamento.setText("");
@@ -41,7 +40,11 @@ public class Principal extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                 if ((!"".equals(TMedicamento.getText())) && (!"".equals(TPrincipioAtivo.getText())) && (!"".equals(TDataFabricacao.getText())) && (!"".equals(TDataValidade.getText()))) {
+                 if (
+                         (!"".equals(TMedicamento.getText())) &&
+                                 (!"".equals(TPrincipioAtivo.getText())) &&
+                                 (!"".equals(TDataFabricacao.getText())) &&
+                                 (!"".equals(TDataValidade.getText()))) {
                      Medicamento medicamento = new Medicamento();
 
                      medicamento.setNome(TMedicamento.getText());
@@ -50,18 +53,14 @@ public class Principal extends JFrame{
                      medicamento.setDataValidade(TDataValidade.getText());
 
                      if(cm.addMedicamento(medicamento)){
-                         JOptionPane.showMessageDialog(null, "Medicamento cadastrado com sucesso!");
+                         JOptionPane.showMessageDialog(
+                                 null, "Medicamento cadastrado com sucesso!");
                          limparCampos();
                          tResultado.setText(String.valueOf(cm.mostrarMedicamentos()));
-
-                         /*model.addElement(String.valueOf(cm.mostrarMedicamentos()));
-
-                         Jlist1.setModel(model);*/
                      }else {
                          JOptionPane.showMessageDialog(null, "Erro ao cadastrar medicamento!");
                          limparCampos();
                      }
-
                  } else {
                      JOptionPane.showMessageDialog(null, "Prenchimento Obrigatório dos campos!");
                      limparCampos();
@@ -77,7 +76,14 @@ public class Principal extends JFrame{
         mostrarTudoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dlMostrarTudo dlg =new dlMostrarTudo(cm);
+                dlMostrarTudo dlg = new dlMostrarTudo(cm);
+                dlg.setVisible(true);
+            }
+        });
+        btable.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DLMostarMedicamentos dlg = new DLMostarMedicamentos(cm);
                 dlg.setVisible(true);
             }
         });

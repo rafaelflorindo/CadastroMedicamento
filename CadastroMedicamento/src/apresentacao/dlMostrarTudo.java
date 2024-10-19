@@ -16,6 +16,7 @@ public class dlMostrarTudo extends JDialog {
 
     ControlaMedicamento cm;
     DefaultListModel model = new DefaultListModel();
+
     public dlMostrarTudo(ControlaMedicamento cm) {
         setContentPane(contentPane);
         setModal(true);
@@ -24,16 +25,14 @@ public class dlMostrarTudo extends JDialog {
         this.cm = cm;
         exibeInformacoes();
     }
-        private void exibeInformacoes() {
-            ArrayList<Medicamento> medicamentos = cm.mostrarMedicamentos();
-
-            for (int i =0; i<medicamentos.size(); i++){
-                model.addElement(medicamentos.get(i));
-            }
-
-
-            list1.setModel(model);
+    private void exibeInformacoes() {
+        ArrayList<Medicamento> medicamentos = cm.mostrarMedicamentos();
+        for (int i = 0; i < medicamentos.size(); i++){
+            model.addElement(medicamentos.get(i));
         }
+        list1.setModel(model);
+    }
+
         public dlMostrarTudo() {
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -66,6 +65,7 @@ public class dlMostrarTudo extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 model.clear();
                 list1.setModel(model);
+                exibeInformacoes();
             }
         });
             buttonCancel.addActionListener(new ActionListener() {
@@ -101,6 +101,7 @@ public class dlMostrarTudo extends JDialog {
         dlMostrarTudo dialog = new dlMostrarTudo();
         dialog.pack();
         dialog.setVisible(true);
+        dialog.setSize(500, 400);
         System.exit(0);
     }
 }
