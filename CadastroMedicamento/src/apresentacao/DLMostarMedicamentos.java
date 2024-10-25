@@ -6,37 +6,42 @@ import persistencia.ControlaMedicamento;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import java.time.format.DateTimeFormatter;
 
 public class DLMostarMedicamentos extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
+    private JButton btnEditar;
     private JButton buttonCancel;
-
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     ControlaMedicamento cm;
+    DefaultTableModel modeloTabela;
 
     public DLMostarMedicamentos(ControlaMedicamento cm) {
         String[] colunas = { "ID", "Nome", "Data de Fabricacao", "Data de Validade", "Principo Ativo" };
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunas, 0);
+        modeloTabela = new DefaultTableModel(colunas, 0);
 
-        for (Medicamento medicametos : cm.mostrarMedicamentos()) {
-            Object[] dadosMedicamentos = { medicametos.getId(), medicametos.getNome(),
-                    medicametos.getDataFabricacao(), medicametos.getDataValidade(), medicametos.getPrincipioAtivo() };
+        for (Medicamento medicamentos : cm.mostrarMedicamentos()) {
+            Object[] dadosMedicamentos = { medicamentos.getId(), medicamentos.getNome(),
+                    medicamentos.getDataFabricacao().format(formatter), medicamentos.getDataValidade().format(formatter), medicamentos.getPrincipioAtivo() };
             modeloTabela.addRow(dadosMedicamentos);
         }
 
         JTable tabelaMedicamentos = new JTable(modeloTabela);
         JScrollPane scrollPane = new JScrollPane(tabelaMedicamentos);
         JOptionPane.showMessageDialog(null, scrollPane, "Lista de Medicamentos", JOptionPane.INFORMATION_MESSAGE);
+
     }
     public DLMostarMedicamentos() {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(btnEditar);
 
-        buttonOK.addActionListener(new ActionListener() {
+        btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
+
+
         });
 
         buttonCancel.addActionListener(new ActionListener() {

@@ -6,6 +6,8 @@ import persistencia.ControlaMedicamento;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Principal extends JFrame{
     private JTextField TMedicamento;
@@ -21,6 +23,7 @@ public class Principal extends JFrame{
 
     ControlaMedicamento cm = new ControlaMedicamento();
 
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public void limparCampos(){
         TMedicamento.setText("");
         TPrincipioAtivo.setText("");
@@ -34,7 +37,7 @@ public class Principal extends JFrame{
         setTitle("Cadastro de Medicamento");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(700,400);
+        setSize(500,400);
 
         btnSalvar.addActionListener(new ActionListener() {
             @Override
@@ -47,10 +50,14 @@ public class Principal extends JFrame{
                                  (!"".equals(TDataValidade.getText()))) {
                      Medicamento medicamento = new Medicamento();
 
+
+                     int id = Medicamento.getProximoIdMedicamento();//ALTERAÇÃO
+                     medicamento.setId(id);//ALTERAÇÃO
+                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                      medicamento.setNome(TMedicamento.getText());
                      medicamento.setPrincipioAtivo(TPrincipioAtivo.getText());
-                     medicamento.setDataFabricacao(TDataFabricacao.getText());
-                     medicamento.setDataValidade(TDataValidade.getText());
+                     medicamento.setDataFabricacao(LocalDate.parse(TDataFabricacao.getText(), formatter));
+                     medicamento.setDataValidade(LocalDate.parse(TDataValidade.getText(),formatter));
 
                      if(cm.addMedicamento(medicamento)){
                          JOptionPane.showMessageDialog(

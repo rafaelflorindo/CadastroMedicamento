@@ -1,13 +1,18 @@
 package Negocio;
 
+import java.time.LocalDate;
+
 public class Medicamento {
-    private int id;
+    private int id;//ALTERAÇÃO
     private String nome;
     private String principioAtivo;
-    private String dataFabricacao;
-    private String dataValidade;
+    private LocalDate dataFabricacao;
+    private LocalDate dataValidade;
 
-    public Medicamento(String nome, String principioAtivo, String dataFabricacao, String dataValidade) {
+    public static int proximoIdMedicamento = 1; //ALTERAÇÃO
+
+    public Medicamento(String nome, String principioAtivo, LocalDate dataFabricacao, LocalDate dataValidade) {
+
         this.setNome(nome);
         this.setPrincipioAtivo(principioAtivo);
         this.setDataFabricacao(dataFabricacao);
@@ -33,19 +38,19 @@ public class Medicamento {
         this.principioAtivo = principioAtivo;
     }
 
-    public String getDataFabricacao() {
+    public LocalDate getDataFabricacao() {
         return dataFabricacao;
     }
 
-    public void setDataFabricacao(String dataFabricacao) {
+    public void setDataFabricacao(LocalDate dataFabricacao) {
         this.dataFabricacao = dataFabricacao;
     }
 
-    public String getDataValidade() {
+    public LocalDate getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(String dataValidade) {
+    public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
     }
 
@@ -57,9 +62,13 @@ public class Medicamento {
         this.id = id;
     }
 
+    public static int getProximoIdMedicamento() {
+        return proximoIdMedicamento++;
+    }
     @Override
     public String toString() {
-        return  "\nMedicamento ='" + nome + '\'' +
+        return  "\nID ='" + id + '\'' +
+                "Medicamento ='" + nome + '\'' +
                 ", Principio Ativo ='" + principioAtivo + '\'' +
                 ", Fabricacao ='" + dataFabricacao + '\'' +
                 ", Validade ='" + dataValidade;
